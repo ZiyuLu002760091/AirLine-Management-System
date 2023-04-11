@@ -1,0 +1,15 @@
+package neu.edu.AirLineServer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class AirLineServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AirLineServerApplication.class, args);
+	}
+
+}

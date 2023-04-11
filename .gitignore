@@ -1,0 +1,20 @@
+# General
+.DS_Store
+.idea/
+.vscode/
+
+# React
+/node_modules/
+/build/
+
+# Spring Boot
+/target/
+*.class
+*.log
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
