@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "flightsInfo")
+@Table(name = "flightsinfo")
 public class Flight implements Serializable {
 
     @Id
@@ -22,25 +22,23 @@ public class Flight implements Serializable {
 
     private String company_name;
 
-    private Date date;
+    private String estimated_departure_datetime;
 
-    private String estimated_departure_time;
-
-    private String estimated_arrival_time;
+    private String estimated_arrival_datetime;
 
     private String origin;
 
     private String destination;
 
-    private String actual_departure_time;
+    private String actual_departure_datetime;
 
-    private String actual_arrival_time;
+    private String actual_arrival_datetime;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
     public enum Status {
-        planning, cancelled, delay
+        planning, cancelled, delay,in_advance_on_time
     }
 
 }
