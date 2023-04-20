@@ -1,6 +1,6 @@
 package neu.edu.DemoProject.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  */
 @RestController
-public class HelloControler {
+public class HelloController {
 
     @GetMapping("/helloWorld")
+    @CrossOrigin
     public String helloWorld() {
         return "HelloWorld";
     }
