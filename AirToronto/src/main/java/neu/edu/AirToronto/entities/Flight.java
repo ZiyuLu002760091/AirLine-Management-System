@@ -1,4 +1,4 @@
-package neu.edu.AirLinePortal.entities;
+package neu.edu.AirToronto.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,6 +16,7 @@ import java.util.Date;
 public class Flight implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
 
     private String flight_number;
@@ -40,5 +41,7 @@ public class Flight implements Serializable {
     public enum Status {
         planning, cancelled, delay,in_advance_on_time
     }
+
+
 
 }
