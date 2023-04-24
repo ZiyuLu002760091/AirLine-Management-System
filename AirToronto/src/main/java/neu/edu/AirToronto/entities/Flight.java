@@ -35,6 +35,10 @@ public class Flight implements Serializable {
 
     private String actual_arrival_datetime;
 
+    private String price;
+
+    private String member_discount;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 

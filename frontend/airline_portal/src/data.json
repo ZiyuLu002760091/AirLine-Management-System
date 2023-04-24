@@ -1,0 +1,98 @@
+{
+  "message": "",
+  "success": true,
+  "data": {
+    "air-toronto": {
+      "message": "",
+      "success": true,
+      "data": [
+        {
+          "uuid": "19b1a5b2-b94c-439f-a519-a916f07f83d5",
+          "flight_number": "FR456",
+          "company_name": "Ryanair",
+          "estimated_departure_datetime": "2023-05-11 14:30:00",
+          "estimated_arrival_datetime": "2023-05-11 17:30:00",
+          "origin": "Dublin",
+          "destination": "Barcelona",
+          "actual_departure_datetime": "2023-05-11 14:28:00",
+          "actual_arrival_datetime": "2023-05-11 19:00:00",
+          "price": "400.0",
+          "member_discount": "0.3",
+          "status": "delay"
+        },
+        {
+          "uuid": "2",
+          "flight_number": "FR456",
+          "company_name": "Ryanair",
+          "estimated_departure_datetime": "2023-05-11 14:30:00",
+          "estimated_arrival_datetime": "2023-05-11 17:30:00",
+          "origin": "Dublin",
+          "destination": "Barcelona",
+          "price": "200.0",
+          "member_discount": "0.75",
+          "status": "delay"
+        },
+        {
+          "uuid": "2ebd834e-ec29-4df7-a1b7-9e3c3ce6ca45",
+          "flight_number": "FR456",
+          "company_name": "Ryanair",
+          "estimated_departure_datetime": "2023-05-11 14:30:00",
+          "estimated_arrival_datetime": "2023-05-11 17:30:00",
+          "origin": "Dublin",
+          "destination": "Barcelona",
+          "price": "2560.0",
+          "member_discount": "0.4",
+          "status": "delay"
+        },
+        {
+          "uuid": "3",
+          "flight_number": "UA789",
+          "company_name": "United Airlines",
+          "estimated_departure_datetime": "2023-05-12 10:15:00",
+          "estimated_arrival_datetime": "2023-05-12 12:30:00",
+          "origin": "Los Angeles",
+          "destination": "San Francisco",
+          "price": "740.0",
+          "member_discount": "0.85",
+          "status": "planning"
+        },
+        {
+          "uuid": "4",
+          "flight_number": "EK012",
+          "company_name": "Emirates",
+          "estimated_departure_datetime": "2023-05-13 18:45:00",
+          "estimated_arrival_datetime": "2023-05-14 08:30:00",
+          "origin": "Dubai",
+          "destination": "Sydney",
+          "price": "260.0",
+          "member_discount": "0.6",
+          "status": "in_advance_on_time"
+        },
+        {
+          "uuid": "5",
+          "flight_number": "LH456",
+          "company_name": "Lufthansa",
+          "estimated_departure_datetime": "2023-05-14 09:00:00",
+          "estimated_arrival_datetime": "2023-05-14 15:30:00",
+          "origin": "Frankfurt",
+          "destination": "New Delhi",
+          "price": "1000.0",
+          "member_discount": "0.5",
+          "status": "cancelled"
+        },
+        {
+          "uuid": "e9394ea4-7080-4182-bc6c-147fb0b83dcf",
+          "flight_number": "FR456",
+          "company_name": "Ryanair",
+          "estimated_departure_datetime": "2023-05-11 14:30:00",
+          "estimated_arrival_datetime": "2023-05-11 17:30:00",
+          "origin": "Dublin",
+          "destination": "Barcelona",
+          "price": "1300.0",
+          "member_discount": "0.7",
+          "status": "delay"
+        }
+      ]
+    }
+  }
+}

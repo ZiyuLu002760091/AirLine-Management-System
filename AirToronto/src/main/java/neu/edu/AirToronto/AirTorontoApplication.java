@@ -27,29 +27,6 @@ public class AirTorontoApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		System.out.println("application is running 1");
-//		eurekaClient.registerEventListener(new EurekaEventListener() {
-//			@Override
-//			public void onEvent(EurekaEvent eurekaEvent) {
-//				if (eurekaEvent instanceof StatusChangeEvent) {
-//					if (((StatusChangeEvent) eurekaEvent).isUp()) {
-//						System.out.println("application is running");
-//						RestTemplate restTemplate = new RestTemplate();
-//						Map<String, Object> map = new HashMap<>();
-//						map.put("name","air-toronto");
-//						map.put("TEST","/helloAT");
-////						String serverURL = eurekaClient.getNextServerFromEureka("my-server1", false).getHomePageUrl();
-//						String serverURL = "http://localhost:8081/";
-//						serverURL = serverURL + "portal/register";
-//						System.out.println(serverURL);
-////        ResponseEntity<CommonResponse> response = restTemplate.getForEntity(serverURL, CommonResponse.class, map);
-//						ResponseEntity<String> response = restTemplate.postForEntity(serverURL, null, String.class, map);
-//						System.out.println(CommonUtils.success(response.getBody()));
-//					}
-//				}
-//			}
-//		});
-
 		try {
 
 			System.out.println("application is running");
@@ -57,8 +34,9 @@ public class AirTorontoApplication implements ApplicationRunner {
 			Map<String, Object> map = new HashMap<>();
 			map.put("name","air-toronto");
 			map.put("TEST","/hello2");
+			map.put("VIEW_ALL_AIRLINES","/flight/all");
 			String serverURL = "http://localhost:8081/";
-			serverURL = serverURL + "portal/api";
+			serverURL = serverURL + "portal/api/register";
 			System.out.println(serverURL);
 
 			String response = restTemplate.postForObject(serverURL, map, String.class);

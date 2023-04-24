@@ -11,6 +11,9 @@ import Login from "./components/pages/login";
 import Register from "./components/pages/register";
 
 
+import AirlineListPage from "./components/pages/airlineListPage";
+
+
 
 function App() {
   return (
@@ -21,6 +24,7 @@ function App() {
                 <Route path="/" element={<MainPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/airlineListPage" element={<AirlineListPage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>

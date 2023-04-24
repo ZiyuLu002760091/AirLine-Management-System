@@ -38,8 +38,10 @@ public class CallAPIs {
              apis.keySet()) {
             String serverURL = eurekaClient.getNextServerFromEureka(server, false).getHomePageUrl();
             serverURL = serverURL + server + apis.get(server);
+            System.out.println(serverURL);
             ResponseEntity<String> response = restTemplate.getForEntity(serverURL, String.class, hashMap);
             String body = response.getBody();
+            System.out.println(body);
             Gson jsonObject = new Gson();
             CommonResponse jsonBody = jsonObject.fromJson(body, CommonResponse.class);
             responseMap.put(server,jsonBody);
