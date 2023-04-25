@@ -1,6 +1,6 @@
 import '../../errorPage.css';
 
-function ErrorPage() {
+function ErrorPage({props}) {
     return (
         <div>
             <h1>404 Not Found</h1>

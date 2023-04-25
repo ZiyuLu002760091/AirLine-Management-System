@@ -12,6 +12,8 @@ import Register from "./components/pages/register";
 
 
 import AirlineListPage from "./components/pages/airlineListPage";
+import {useState} from "react";
+import Logout from "./components/pages/logoutPage";
 
 
 
@@ -21,8 +23,9 @@ function App() {
         <Heading />
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<MainPage/>} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/logout" element={<Logout/>} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/airlineListPage" element={<AirlineListPage />} />
                 <Route path="*" element={<ErrorPage />} />

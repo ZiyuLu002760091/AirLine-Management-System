@@ -1,9 +1,24 @@
+import {useEffect, useState} from "react";
+import {checkLogin, getLoginUser} from "../services/loginService";
+
 function MainPage() {
+
+    const [greeting, setGreeting] = useState("Hello, you are viewing as guest, would you like to login?");
+
+    useEffect(() => {
+        if (checkLogin()) {
+            setGreeting("Welcome, " + getLoginUser()["fname"]);
+        } else {
+            setGreeting("Hello, you are viewing as guest, would you like to login?");
+        }
+    }, [checkLogin]);
+
     return (
         <div>
             <main>
                 <section>
                     <h2>Flights Search</h2>
+                    <p>{greeting}</p>
                     <label htmlFor="from">From:</label>
                     <input type="text" id="from" name="from"/>
                     <label htmlFor="to">To:</label>

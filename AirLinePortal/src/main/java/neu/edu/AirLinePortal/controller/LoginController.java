@@ -25,24 +25,24 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @PostMapping (path = "/login",produces = "application/json")
-    public ResponseEntity<String> LoginUsingEmailAndPassword(@RequestBody User user, HttpServletRequest request) {
-        boolean loginSuccess = loginService.login(user.getEmail(),user.getPassword(),request);
-        if(!loginSuccess) {
+    @PostMapping(path = "/login", produces = "application/json")
+    public ResponseEntity<String> LoginUsingEmailAndPassword2(@RequestBody User user, HttpServletRequest request) {
+        User loginUser = loginService.login(user.getEmail(), user.getPassword(), request);
+        if (null == loginUser) {
             return ResponseEntity.badRequest().body(CommonUtils.failed("Username or password not found"));
         }
-        return ResponseEntity.ok(CommonUtils.success());
+        loginUser.setPassword("***");
+        return ResponseEntity.ok(CommonUtils.success(loginUser));
     }
 
     @PostMapping(path = "/logincheck", produces = "application/json")
     public ResponseEntity<String> isLogin(HttpServletRequest request) {
-        if(loginService.isLogin(request)) {
+        if (loginService.isLogin(request)) {
             return ResponseEntity.ok(CommonUtils.success());
         } else {
             return ResponseEntity.badRequest().body("not login");
         }
     }
-
 
 
 }

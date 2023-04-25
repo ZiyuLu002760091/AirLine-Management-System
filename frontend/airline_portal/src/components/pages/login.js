@@ -1,4 +1,6 @@
 import {useState} from "react";
+import sendRequest from "../services/ApiService";
+import {login} from "../services/loginService";
 
 function Login() {
 
@@ -18,17 +20,19 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:8081/portal/login", {
+            const response = await sendRequest({
+                path: "portal/login",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: { email, password },
             });
 
-            const data = await response.json();
+            const data = response;
             if (data.success) {
                 // Redirect to the homepage
+                login(data)
                 alert("success");
                 window.location.href = "/";
             } else {

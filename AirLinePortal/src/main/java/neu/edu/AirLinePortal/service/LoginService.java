@@ -21,17 +21,17 @@ public class LoginService {
     private UserRepo userRepo;
     @Autowired
     private UserService userService;
-    public boolean login(String email, String pwd, HttpServletRequest request) {
+    public User login(String email, String pwd, HttpServletRequest request) {
         HttpSession httpSession = request.getSession();
 //        if(isLogin(request)) {
 //            return true;
 //        }
         User user = userRepo.findByEmailAndPassword(email, pwd);
         if(null == user) {
-            return false;
+            return null;
         }
         httpSession.setAttribute("user",user);
-        return true;
+        return user;
     }
 
     public boolean isLogin(HttpServletRequest request) {
