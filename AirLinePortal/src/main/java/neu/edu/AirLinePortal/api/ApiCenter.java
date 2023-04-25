@@ -26,6 +26,8 @@ public class ApiCenter {
     public static final String CREATE_AIRLINE = "CREATE_AIRLINE";
     public static final String UPDATE_AIRLINE = "UPDATE_AIRLINE";
     public static final String DELETE_AIRLINE = "DELETE_AIRLINE";
+    public static final String SEARCH_AIRLINE = "SEARCH_AIRLINE";
+
     private static ApiCenter instance = new ApiCenter();
     private ApiCenter() {
 

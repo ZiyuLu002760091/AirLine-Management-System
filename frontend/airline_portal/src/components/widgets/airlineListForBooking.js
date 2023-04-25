@@ -8,7 +8,7 @@ function formatDateTime(datetimeString) {
     return `${formattedDate} ${formattedTime}`;
 }
 
-function FlightData({ data }) {
+function BookFlightList({ data }) {
     const [sortBy, setSortBy] = useState("time");
     const [sortOrder, setSortOrder] = useState(0); // 0 for ascending, 1 for descending
     const [timeBtnStr, setTimeBtn] = useState("Sort by Time Ascend");
@@ -113,4 +113,4 @@ function FlightData({ data }) {
     );
 }
 
-export default FlightData;
+export default BookFlightList;

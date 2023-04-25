@@ -77,7 +77,7 @@ public class FlightsInfoController {
         return ResponseEntity.ok(CommonUtils.success());
     }
 
-    @GetMapping("/flights/search")
+    @GetMapping(path = "/flight/search", produces = "application/json")
     public ResponseEntity<String> searchFlights(
             @RequestParam("from") String from,
             @RequestParam("to") String to,

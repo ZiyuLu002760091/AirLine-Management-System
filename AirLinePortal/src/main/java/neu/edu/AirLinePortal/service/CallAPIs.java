@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +62,13 @@ public class CallAPIs {
      * @param issue see the APIs in {@code ApiCenter}
      * @param hashMap HashMap here is params, will not extract specific keys in this method, this is just for taking all and resend
      */
-    public Map<String, CommonResponse> getAPIs(String issue, HashMap<String, Object> hashMap) {
+    public Map<String, CommonResponse> getAPIs(String issue, Map<String, Object> hashMap) {
+        System.out.println("receive api calls for " + issue + "with params");
+        if (null != hashMap) {
+            hashMap.forEach((k, v ) -> {
+                System.out.println("key: " + k + " value " + v);
+            });
+        }
         Map<String, String> apis = ApiCenter.getInstance().getApis(issue);
         Map<String, CommonResponse> responseMap = new HashMap<>();
         for (String server :
@@ -69,7 +76,17 @@ public class CallAPIs {
             String serverURL = eurekaClient.getNextServerFromEureka(server, false).getHomePageUrl();
             serverURL = serverURL + server + apis.get(server);
             System.out.println(serverURL);
-            ResponseEntity<String> response = restTemplate.getForEntity(serverURL, String.class, hashMap);
+
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(serverURL);
+
+            if (null != hashMap) {
+                hashMap.forEach(builder::queryParam);
+            }
+
+            String url = builder.toUriString();
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+//            ResponseEntity<String> response = restTemplate.getForEntity(serverURL, String.class, hashMap);
             String body = response.getBody();
             System.out.println(body);
             Gson jsonObject = new Gson();

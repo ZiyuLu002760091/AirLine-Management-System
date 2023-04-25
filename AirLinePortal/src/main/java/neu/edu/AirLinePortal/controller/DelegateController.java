@@ -5,13 +5,13 @@ import neu.edu.AirLinePortal.service.CallAPIs;
 import neu.edu.common.entities.CommonResponse;
 import neu.edu.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +29,13 @@ public class DelegateController {
     @GetMapping(path = "/airlines/all",produces = "application/json")
     public ResponseEntity<String> getAllFlights() {
         Map<String, CommonResponse> responseMap = callAPIs.getAPIs(ApiCenter.VIEW_ALL_AIRLINES, new HashMap<>());
+        return ResponseEntity.ok(CommonUtils.success(responseMap));
+    }
+
+
+    @GetMapping(path = "/airlines/search", produces = "application/json")
+    public ResponseEntity<String> searchFlights(@RequestParam Map<String, Object> map) {
+        Map<String, CommonResponse> responseMap = callAPIs.getAPIs(ApiCenter.SEARCH_AIRLINE, map);
         return ResponseEntity.ok(CommonUtils.success(responseMap));
     }
 }

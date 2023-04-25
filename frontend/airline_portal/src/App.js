@@ -17,6 +17,7 @@ import Logout from "./components/pages/logoutPage";
 import ChangeProfile from "./components/pages/profile";
 import {checkLogin, getLoginUser} from "./components/services/loginService";
 import AdminPage from "./components/pages/adminMainPage";
+import SearchFlightsPage from "./components/pages/searchFlightsPage";
 
 
 
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/profile" element={<ChangeProfile/>} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/airlineListPage" element={<AirlineListPage />} />
+                <Route path="/searchFlights" element={<SearchFlightsPage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>

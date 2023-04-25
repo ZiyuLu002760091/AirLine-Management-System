@@ -4,6 +4,7 @@ import sendRequest from "../services/ApiService";
 
 function MainPage() {
 
+    // get all cities from server
     const fetchCities = async () => {
         const data = await sendRequest({
             path: 'airports/all',
@@ -20,6 +21,7 @@ function MainPage() {
         // Loop through each airport and add it to the dropdown as an option
         airports.forEach(airport => {
             const option = document.createElement("option");
+            option.value = `${airport.icao}`;
             option.text = `${airport.icao} - ${airport.name}, ${airport.city}, ${airport.state} (${airport.iata === "" ? "N/A" : airport.iata})`;
             dropdown.add(option);
         });
@@ -29,11 +31,13 @@ function MainPage() {
         // Loop through each airport and add it to the dropdown as an option
         airports.forEach(airport => {
             const option = document.createElement("option");
+            option.value = `${airport.icao}`;
             option.text = `${airport.icao} - ${airport.name}, ${airport.city}, ${airport.state} (${airport.iata === "" ? "N/A" : airport.iata})`;
             dropdownTo.add(option);
         });
     }
 
+    // find airports by any filter
     const searchAirports = async ({city, airport, element}) => {
         const data = await sendRequest({
             path: 'airports/search',
@@ -59,6 +63,7 @@ function MainPage() {
         // Loop through each airport and add it to the dropdown as an option
         airports.forEach(airport => {
             const option = document.createElement("option");
+            option.value = `${airport.icao}`
             option.text = `${airport.icao} - ${airport.name}, ${airport.city}, ${airport.state} (${airport.iata === "" ? "N/A" : airport.iata})`;
             dropdown.add(option);
         });
@@ -71,6 +76,7 @@ function MainPage() {
     const [toCity, setToCity] = useState("");
     const [toAirport, setToAirport] = useState("");
 
+    // hit from city button
     const findFromCity = () => {
         searchAirports({
             city: fromCity,
@@ -79,6 +85,7 @@ function MainPage() {
         });
     }
 
+    // hit from airport button
     const findFromAirport = () => {
         searchAirports({
             city: "",
@@ -87,6 +94,7 @@ function MainPage() {
         });
     }
 
+    // hit to city button
     const findToCity = () => {
         searchAirports({
             city: toCity,
@@ -95,6 +103,7 @@ function MainPage() {
         });
     }
 
+    // hit to airport button
     const findToAirport = () => {
         searchAirports({
             city: "",
@@ -106,6 +115,7 @@ function MainPage() {
     const [greeting, setGreeting] = useState("Hello, you are viewing as guest, would you like to login?");
 
     useEffect(() => {
+        // show greeting message
         if (checkLogin()) {
             setGreeting("Welcome, " + getLoginUser()["fname"]);
         } else {
@@ -114,8 +124,30 @@ function MainPage() {
     }, [checkLogin]);
 
     useEffect(() => {
+        // get all city data
         fetchCities();
     }, [])
+
+    // hit search button
+    const handleSubmitSearch = (e) => {
+        e.preventDefault();
+
+        let fromVal =  document.getElementById('from').value;
+        let toVal = document.getElementById('to').value;
+        let date = document.getElementById('date').value;
+
+        if (!fromVal || !toVal || !date) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const params = new URLSearchParams();
+        params.append("from", fromVal);
+        params.append("to", toVal);
+        params.append("date", date);
+
+        window.location.href = `/searchFlights?${params.toString()}`;
+    }
 
     return (
         <div>
@@ -149,7 +181,9 @@ function MainPage() {
                     </select>
                     <label htmlFor="date">Date:</label>
                     <input type="date" id="date" name="date"/>
-                    <input type="submit" value="Search Flights"/>
+                    <form onSubmit={handleSubmitSearch}>
+                        <input type="submit" value="Search Flights"/>
+                    </form>
 
                 </section>
             </main>

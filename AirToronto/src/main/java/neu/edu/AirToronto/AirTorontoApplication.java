@@ -35,6 +35,7 @@ public class AirTorontoApplication implements ApplicationRunner {
 			map.put("name","air-toronto");
 			map.put("TEST","/hello2");
 			map.put("VIEW_ALL_AIRLINES","/flight/all");
+			map.put("SEARCH_AIRLINE","/flight/search");
 			String serverURL = "http://localhost:8081/";
 			serverURL = serverURL + "portal/api/register";
 			System.out.println(serverURL);
