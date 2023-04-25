@@ -1,7 +1,15 @@
-import {logout} from "../services/loginService";
+import {checkLogin, logout} from "../services/loginService";
+import {useEffect} from "react";
 
 function Logout() {
-    logout();
+
+    useEffect(() => {
+        if (checkLogin()) {
+            logout();
+            window.alert("You have successfully logged out!");
+            window.location.href = "/";
+        }
+    })
 
     return (
         <div>

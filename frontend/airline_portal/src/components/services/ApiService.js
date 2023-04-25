@@ -1,12 +1,18 @@
-function sendRequest({ path, method, headers, body }) {
+function sendRequest({ path, method = "GET", port = "8081", server = "portal", headers = {
+    "Content-Type": "application/json",
+}, body}) {
     // this is a delegate method of fetch, so that we can handle all http requests inside one place
-    const url = `http://localhost:8081/${path}`;
+    const url = `http://localhost:${port}/${server}/${path}`;
     return fetch(url, {
         method,
         headers,
         body: JSON.stringify(body),
     })
-        .then(response => response.json())
+        .then(response => {
+            let responseJson = response.json();
+            console.log(responseJson);
+            return responseJson;
+        })
         .catch(error => console.error(error));
 }
 

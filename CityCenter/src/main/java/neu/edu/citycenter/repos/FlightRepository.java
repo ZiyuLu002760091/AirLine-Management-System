@@ -14,5 +14,10 @@ public interface FlightRepository extends MongoRepository<Flight, ObjectId> {
     List<Flight> findByCityAndCountry(String city, String country);
 
     List<Flight> findByCountry(String country);
+
+    List<Flight> findByCityRegexAndCountry(String cityRegex, String country);
+
+    List<Flight> findByIataRegexAndCountry(String iataRegex, String country);
+
 }
 

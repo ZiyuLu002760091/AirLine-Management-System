@@ -5,6 +5,7 @@ import neu.edu.AirToronto.repo.FlightsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +67,9 @@ public class FlightsInfoService {
         }
     }
 
-
+    public List<Flight> searchFlights(String from, String to, LocalDate date) {
+        return flightsRepo.findFlightsByAirportsAndDate(from, to, date);
+    }
 
     public Flight findFlightByDateAndFlightNo(String date,String flightNo) {
         return flightsRepo.findByDateAndNo(date, flightNo);

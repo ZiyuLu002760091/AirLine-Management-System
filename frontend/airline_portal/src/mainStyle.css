@@ -98,3 +98,19 @@ footer {
 .errorMsg {
     color: red;
 }
+.search-hint-container {
+    display: flex;
+    align-items: center;
+}
+.search-hint-container input {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.search-hint {
+    display: inline-block;
+}
+
+.search-hint input {
+    margin-right: 10px;
+}

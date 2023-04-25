@@ -21,7 +21,7 @@ function Login() {
         e.preventDefault();
         try {
             const response = await sendRequest({
-                path: "portal/login",
+                path: "login",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

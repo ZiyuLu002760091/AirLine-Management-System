@@ -5,9 +5,13 @@ import neu.edu.AirToronto.entities.Flight;
 import neu.edu.AirToronto.service.FlightsInfoService;
 import neu.edu.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author YUlia
@@ -71,5 +75,19 @@ public class FlightsInfoController {
             return ResponseEntity.badRequest().body(CommonUtils.failed(e.getMessage()));
         }
         return ResponseEntity.ok(CommonUtils.success());
+    }
+
+    @GetMapping("/flights/search")
+    public ResponseEntity<String> searchFlights(
+            @RequestParam("from") String from,
+            @RequestParam("to") String to,
+            @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) {
+        try {
+            List<Flight> flights = flightsInfoService.searchFlights(from, to, date);
+            return ResponseEntity.ok(CommonUtils.success(flights));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(CommonUtils.failed(e.getMessage()));
+        }
     }
 }
