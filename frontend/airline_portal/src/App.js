@@ -14,18 +14,27 @@ import Register from "./components/pages/register";
 import AirlineListPage from "./components/pages/airlineListPage";
 import {useState} from "react";
 import Logout from "./components/pages/logoutPage";
+import ChangeProfile from "./components/pages/profile";
+import {checkLogin, getLoginUser} from "./components/services/loginService";
+import AdminPage from "./components/pages/adminMainPage";
 
 
 
 function App() {
+
+    const isLoggedIn = checkLogin();
+    const loginUser = isLoggedIn ? getLoginUser() : null;
+    const isAdmin = isLoggedIn ? loginUser.role === 'admin' : false;
+
   return (
     <div className="App">
         <Heading />
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<MainPage/>} />
+                <Route path="/" element={isAdmin ? <AdminPage/> : <MainPage/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/logout" element={<Logout/>} />
+                <Route path="/profile" element={<ChangeProfile/>} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/airlineListPage" element={<AirlineListPage />} />
                 <Route path="*" element={<ErrorPage />} />

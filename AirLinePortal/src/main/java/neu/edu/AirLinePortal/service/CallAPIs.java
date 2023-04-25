@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * API Delegate
+ * "important class"
+ *
+ * @see ApiCenter for storing all the registered APIs
  * @author YUlia
  * @version 1.0
  */
@@ -26,16 +30,42 @@ public class CallAPIs {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * This method is for other sub systems registering services
+     * <p>
+     * HashMap format:
+     * <p>
+     * <code>
+     * {
+     * 	"name":"air-toronto",
+     * 	"VIEW_ALL_AIRLINES":"/airlines/all",
+     * 	"VIEW_CERTAIN_AIRLINES":"/airline"
+     * }
+     * </code>
+     * The server name, provided services and their paths would be extracted from the above JSON (HashMap)
+     */
     public boolean registerAPIs(HashMap<String, Object> hashMap) {
         ApiCenter.getInstance().register(hashMap);
         return true;
     }
 
-    public Map<String,CommonResponse> getAPIs(String issue,HashMap<String, Object> hashMap) {
+    /**
+     * The method is to resend the API to the sub systems
+     * {@code registerAPIs} has to be called first so that the corresponding sub system services will be called
+     * HashMap here is params, will not extract specific keys in this method, this is just for taking all and resend
+     * (There may be some common keys that can be extracted in the future to adjust the feature of this method,
+     * for now this is not implemented)
+     *
+     * For now this method do "GET" only.
+     *
+     * @param issue see the APIs in {@code ApiCenter}
+     * @param hashMap HashMap here is params, will not extract specific keys in this method, this is just for taking all and resend
+     */
+    public Map<String, CommonResponse> getAPIs(String issue, HashMap<String, Object> hashMap) {
         Map<String, String> apis = ApiCenter.getInstance().getApis(issue);
-        Map<String,CommonResponse> responseMap = new HashMap<>();
-        for (String server:
-             apis.keySet()) {
+        Map<String, CommonResponse> responseMap = new HashMap<>();
+        for (String server :
+                apis.keySet()) {
             String serverURL = eurekaClient.getNextServerFromEureka(server, false).getHomePageUrl();
             serverURL = serverURL + server + apis.get(server);
             System.out.println(serverURL);
@@ -44,7 +74,7 @@ public class CallAPIs {
             System.out.println(body);
             Gson jsonObject = new Gson();
             CommonResponse jsonBody = jsonObject.fromJson(body, CommonResponse.class);
-            responseMap.put(server,jsonBody);
+            responseMap.put(server, jsonBody);
         }
         return responseMap;
 

@@ -6,11 +6,19 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * See database "users" table
+ */
 @Data
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
+    /**
+     * This uuid is generated in code
+     *
+     * @see neu.edu.AirLinePortal.service.RegisterService#regiSuccess(UserRequestEntity)
+     */
     @Id
     private String uuid;
 

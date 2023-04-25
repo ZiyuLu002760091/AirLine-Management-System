@@ -25,15 +25,16 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Deprecated
     @PostMapping(path = "/login", produces = "application/json")
-    public ResponseEntity<String> LoginUsingEmailAndPassword2(@RequestBody User user, HttpServletRequest request) {
+    public ResponseEntity<String> LoginUsingEmailAndPassword(@RequestBody User user, HttpServletRequest request) {
         User loginUser = loginService.login(user.getEmail(), user.getPassword(), request);
         if (null == loginUser) {
             return ResponseEntity.badRequest().body(CommonUtils.failed("Username or password not found"));
         }
-        loginUser.setPassword("***");
         return ResponseEntity.ok(CommonUtils.success(loginUser));
     }
+
 
     @PostMapping(path = "/logincheck", produces = "application/json")
     public ResponseEntity<String> isLogin(HttpServletRequest request) {

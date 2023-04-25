@@ -3,6 +3,8 @@ function Footer() {
 
     return (
         <div>
+            {/* eslint-disable-next-line no-restricted-globals */}
+            <button onClick={() => {history.back()}}>Go Back</button>
             <footer>
                 <div>
                     <nav>

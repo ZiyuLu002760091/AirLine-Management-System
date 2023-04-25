@@ -34,6 +34,27 @@ public class ApiCenter {
         return instance;
     }
 
+    /**
+     * The data format stored inside this HashMap:
+     *
+     * <code>
+         {
+             "air-toronto": {
+                 "VIEW_ALL_AIRLINES":"/airlines/all",
+                 "VIEW_CERTAIN_AIRLINES":"/airline"
+             },
+             "northeastern-airline": {
+                 "VIEW_ALL_AIRLINES":"/airlines/all",
+                 "VIEW_CERTAIN_AIRLINES":"/airline"
+             },
+             "xxx-airline": {
+                 "service1": "path1",
+                 "service2": "path2",
+                 ......
+             }
+         }
+     * </code>
+     */
     private HashMap<String, Map<String,Object>> map = new HashMap<>();
 
     public void register(HashMap<String, Object> hashMap) {
@@ -42,6 +63,9 @@ public class ApiCenter {
         map.put(serverName,hashMap);
     }
 
+    /**
+     * This is to get a particular service from all the sub systems, so that they can be called in uniformly.
+     */
     public Map<String,String> getApis(String issue) {
         Map<String,String> paths = new HashMap<>();
         Set<String> servers = map.keySet();
