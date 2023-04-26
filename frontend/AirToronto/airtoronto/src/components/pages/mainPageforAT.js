@@ -1,4 +1,4 @@
-function mainPageforAT() {
+function MainPageforAT() {
     return (
         <div>
             <main>
