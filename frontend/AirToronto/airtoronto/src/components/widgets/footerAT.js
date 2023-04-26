@@ -1,8 +1,14 @@
 function FooterAT() {
     const footerMargin = { marginTop: '20px' }
+    const path = window.location.pathname;
 
     return (
         <div>
+            {
+                path !== '/' && (
+                    // eslint-disable-next-line no-restricted-globals
+                    <button onClick={() => {history.back()}}>Go Back</button>)
+            }
             <footer>
                 <div>
                     <nav>

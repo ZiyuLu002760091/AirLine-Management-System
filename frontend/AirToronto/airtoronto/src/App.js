@@ -9,6 +9,7 @@ import MainPageAdmin from "./components/pages/mainPageAdminAT";
 import Logout from "./components/pages/logoutPageAT";
 import NewFlight from "./components/pages/createFlightAT";
 import ErrorPage from "./components/pages/errorPage";
+import FooterAT from "./components/widgets/footerAT";
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
                 <Route path="/createFlight" element={isAdmin ? <NewFlight/> : <ErrorPage/>} />
             </Routes>
         </BrowserRouter>
+
+        <FooterAT/>
     </div>
   );
 }

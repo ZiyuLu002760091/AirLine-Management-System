@@ -2,6 +2,8 @@ package neu.edu.AirLinePortal.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import neu.edu.AirLinePortal.entities.User;
+import neu.edu.AirLinePortal.entities.UserCredentialUpdate;
+import neu.edu.AirLinePortal.entities.UserUpdate;
 import neu.edu.AirLinePortal.repo.UserRepo;
 import neu.edu.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,43 @@ public class UserService {
         //do the validation here
 
         userRepo.save(user);
+    }
+
+    /**
+     * update user without email and password
+     */
+    public User update(UserUpdate user) throws Exception {
+        Optional<User> optional = userRepo.findById(user.getUuid());
+        if (optional.isPresent()) {
+            User userExist = optional.get();
+            userExist.setDob(user.getDob());
+            userExist.setFname(user.getFname());
+            userExist.setLname(user.getLname());
+            userExist.setPhoneno(user.getPhoneno());
+            userExist.setGender(User.Gender.valueOf(user.getGender()));
+            userExist.setUuid(user.getUuid());
+            userRepo.save(userExist);
+            return userExist;
+        } else {
+            throw new RuntimeException("User not exist");
+        }
+    }
+
+    /**
+     * update user  email and password
+     */
+    public User updateCredential(UserCredentialUpdate user) throws Exception {
+        Optional<User> optional = userRepo.findById(user.getUuid());
+        if (optional.isPresent()) {
+            User userExist = optional.get();
+            userExist.setEmail(user.getEmail());
+            userExist.setPassword(CommonUtils.md5(user.getPassword()));
+            userExist.setUuid(user.getUuid());
+            userRepo.save(userExist);
+            return userExist;
+        } else {
+            throw new RuntimeException("User not exist");
+        }
     }
 
     public User findUserById(String id) {

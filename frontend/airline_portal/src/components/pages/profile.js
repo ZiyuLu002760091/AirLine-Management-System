@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {getLoginUser} from "../services/loginService";
+import {getLoginUser, login, logout} from "../services/loginService";
 
 function ChangeProfile() {
 
@@ -12,8 +12,17 @@ function ChangeProfile() {
     const [phoneErr, setPhoneErr] = useState("");
     const [error, setErrorMessage] = useState("");
 
+    const user = getLoginUser();// Convert Java Date to string
 
-    const handleRegister = async (e) => {
+    var javaDateString = user.dob.toString();
+
+// Create new JavaScript Date object from string
+    var jsDate = new Date(javaDateString);
+    const [gender, setGender] = useState(user.gender.toLowerCase());
+    const [dob, setDob] = useState(jsDate.toISOString().substring(0, 10))
+
+
+    const handleSubmitCredential = async (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -21,8 +30,13 @@ function ChangeProfile() {
         formData.forEach((value, key) => {
             data[key] = value;
         });
+        data['uuid'] = user.uuid;
+        if (data['password'] !== data['confirm-password']) {
+            alert("password mismatch!");
+            return;
+        }
         try {
-            const response = await fetch("http://localhost:8081/portal/register", {
+            const response = await fetch("http://localhost:8081/portal/user/updateCredential", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,8 +47,47 @@ function ChangeProfile() {
             let res = await response.json();
             if (res.success) {
                 // Redirect to the homepage
-                alert("success");
                 window.location.href = "/";
+                // "logout" because credential changed
+                logout();
+            } else {
+                console.error(res.message)
+
+                if (res.message !== "") {
+                    window.alert(res.message);
+                }
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setErrorMessage("An unexpected error occurred. Please try again later.");
+        }
+    }
+
+    // copied from register page, used for update normal info
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        data['uuid'] = user.uuid;
+        try {
+            const response = await fetch("http://localhost:8081/portal/user/update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            let res = await response.json();
+            if (res.success) {
+                // Redirect to the homepage
+                window.location.href = "/";
+                // "login" again to update user info
+                login(res);
             } else {
                 console.error(res.message)
                 let databody = res.data;
@@ -90,19 +143,11 @@ function ChangeProfile() {
         }
     };
 
-    const user = getLoginUser();// Convert Java Date to string
-
     if (user.role === "admin") {
         window.alert("Admin profile cannot be changed");
         window.location.href = "/";
         return;
     }
-
-    var javaDateString = user.dob.toString();
-
-// Create new JavaScript Date object from string
-    var jsDate = new Date(javaDateString);
-
 
     return (
         <div>
@@ -120,19 +165,8 @@ function ChangeProfile() {
 
                 <label htmlFor="dob">Date of Birth:</label>
                 <p className="errorMsg">{dobErr}</p>
-                <input type="date" id="dob" name="dob"  value={jsDate.toISOString().substring(0, 10)} required/>
+                <input type="date" id="dob" name="dob"  value={dob} onChange={(e) => {setDob(e.target.value)}} required/>
                 <br/>
-
-                {/* Password and Email should not be updated here */}
-                {/*<label htmlFor="password">Password:</label>*/}
-                {/*<p className="errorMsg">{pwdErr}</p>*/}
-                {/*<input type="password" id="password" name="password" required/>*/}
-                {/*<br/>*/}
-
-                {/*<label htmlFor="email">Email Address:</label>*/}
-                {/*<p className="errorMsg">{emailErr}</p>*/}
-                {/*<input type="email" id="email" name="email"  defaultValue={user.email} required/>*/}
-                {/*<br/>*/}
 
                 <label htmlFor="phoneno">Phone Number</label>
                 <p className="errorMsg">{phoneErr}</p>
@@ -141,7 +175,7 @@ function ChangeProfile() {
 
                 <label htmlFor="gender">Gender:</label>
                 <p className="errorMsg">{genderErr}</p>
-                <select id="gender" name="gender" value={user.gender.toLowerCase()} required>
+                <select id="gender" name="gender" value={gender} onChange={(e) => {setGender(e.target.value)}} required>
                     <option value="">Select your gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -149,6 +183,25 @@ function ChangeProfile() {
                 </select>
 
                 <input type="submit" value="Update Profile"/>
+            </form>
+
+            <form onSubmit={handleSubmitCredential}>
+
+                <label htmlFor="email">Email Address:</label>
+                <p className="errorMsg">{emailErr}</p>
+                <input type="email" id="email" name="email"  defaultValue={user.email} required/>
+                <br/>
+
+                <label htmlFor="password">Password:</label>
+                <p className="errorMsg">{pwdErr}</p>
+                <input type="password" id="password" name="password" required/>
+                <br/>
+
+                <label htmlFor="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required/>
+                <br/>
+
+                <input type="submit" value="Update Credential"/>
             </form>
             {/*<p className="errorMsg">{error}</p>*/}
         </div>

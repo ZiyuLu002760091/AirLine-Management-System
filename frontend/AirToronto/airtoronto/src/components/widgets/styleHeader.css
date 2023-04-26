@@ -1,5 +1,5 @@
 header {
-    background-color: #0074d9;
+    background-color: rgba(0, 116, 217);
     color: #fff;
     padding: 10px;
 }
@@ -26,7 +26,7 @@ li {
     font-size: 24px;
 }
 
-a {
+header a {
     color: #fff;
     text-decoration: none;
 }

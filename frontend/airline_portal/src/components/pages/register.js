@@ -7,6 +7,7 @@ function Register() {
     const [lname, setLname] = useState("");
     const [dob, setDOB] = useState("");
     const [password, setPassword] = useState("");
+    const [confirm, setConfirm] = useState("");
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("");
     const [phoneno, setPhone] = useState("");
@@ -34,6 +35,10 @@ function Register() {
         setPassword(event.target.value);
     }
 
+    const handleConfirmEnter = (event) => {
+        setConfirm(event.target.value);
+    }
+
     const handleEmailEnter = (event) => {
         setEmail(event.target.value);
     }
@@ -48,6 +53,12 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
+
+            if (password !== confirm) {
+                alert("password mismatch!");
+                return;
+            }
+
             const response = await fetch("http://localhost:8081/portal/register", {
                 method: "POST",
                 headers: {
@@ -83,8 +94,6 @@ function Register() {
 
                     if (null != databody.dob) {
                         setDobErr(databody.dob);
-                    } else {
-                        setFnameErr("");
                     }
 
                     if (null != databody.password) {
@@ -138,6 +147,10 @@ function Register() {
                 <label htmlFor="password">Password:</label>
                 <p className="errorMsg">{pwdErr}</p>
                 <input type="password" id="password" name="password" onChange={handlePwdEnter} required/>
+                <br/>
+
+                <label htmlFor="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" onChange={handleConfirmEnter} required/>
                 <br/>
 
                 <label htmlFor="email">Email Address:</label>
