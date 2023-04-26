@@ -38,6 +38,7 @@ public class FlightsInfoController {
         try {
             flightsInfoService.createFlight(flight);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(CommonUtils.failed(e.getMessage()));
         }
         return ResponseEntity.ok(CommonUtils.success());

@@ -7,6 +7,8 @@ import LoginAT from "./components/pages/loginAT";
 import {checkLogin, getLoginUser} from "./components/services/loginService";
 import MainPageAdmin from "./components/pages/mainPageAdminAT";
 import Logout from "./components/pages/logoutPageAT";
+import NewFlight from "./components/pages/createFlightAT";
+import ErrorPage from "./components/pages/errorPage";
 
 function App() {
 
@@ -23,6 +25,7 @@ function App() {
                 <Route path="/" element={isAdmin ? <MainPageAdmin /> : <MainPageforAT />} />
                 <Route path="/login" element={<LoginAT/>} />
                 <Route path="/logout" element={<Logout/>} />
+                <Route path="/createFlight" element={isAdmin ? <NewFlight/> : <ErrorPage/>} />
             </Routes>
         </BrowserRouter>
     </div>

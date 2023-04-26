@@ -22,6 +22,9 @@ public class FlightsInfoService {
         return flightsRepo.findAll();
     }
 
+    /**
+     * Create a new flight
+     */
     public void createFlight(Flight flight) throws Exception {
         //do the validation here
         if(null != flight) {
@@ -34,8 +37,11 @@ public class FlightsInfoService {
                 jpaFlight.setEstimated_departure_datetime(flight.getEstimated_departure_datetime());
                 jpaFlight.setEstimated_arrival_datetime(flight.getEstimated_arrival_datetime());
                 jpaFlight.setOrigin(flight.getOrigin());
+                jpaFlight.setPrice(flight.getPrice());
                 jpaFlight.setDestination(flight.getDestination());
-                jpaFlight.setStatus(flight.getStatus());
+//                jpaFlight.setStatus(flight.getStatus());
+                // when create, it is planning by default
+                jpaFlight.setStatus(Flight.Status.planning);
 
                 flightsRepo.save(jpaFlight);
 //                jpaFlight.setActual_departure_datetime(flight.getActual_departure_datetime());
@@ -44,12 +50,16 @@ public class FlightsInfoService {
         }
     }
 
+    /**
+     * Update Flight status, actual departure time and actual arrival time
+     */
     public void updateActDatetime(Flight flight) throws Exception {
         if(null != flight) {
             Optional<Flight> jpaFlight = flightsRepo.findById(flight.getUuid());
 
             if(jpaFlight.isPresent()) {
 //                flightsRepo.updateFlight(flight.getActual_departure_datetime(),flight.getActual_arrival_datetime(), flight.getUuid());
+                jpaFlight.get().setStatus(flight.getStatus());
                 jpaFlight.get().setActual_arrival_datetime(flight.getActual_arrival_datetime());
                 jpaFlight.get().setActual_departure_datetime(flight.getActual_departure_datetime());
                 flightsRepo.save(jpaFlight.get());
