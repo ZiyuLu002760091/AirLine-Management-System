@@ -1,0 +1,36 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input,
+select {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+button[type='submit'] {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: indianred;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type='submit']:hover {
+    background-color: indianred;
+}

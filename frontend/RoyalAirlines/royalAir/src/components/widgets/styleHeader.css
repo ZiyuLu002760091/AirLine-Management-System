@@ -1,0 +1,32 @@
+header {
+    background-color: rgba(0, 116, 217);
+    color: #fff;
+    padding: 10px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 36px;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+}
