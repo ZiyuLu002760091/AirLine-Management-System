@@ -3,8 +3,8 @@ function MainPageforAT() {
         <div>
             <main>
                 <section>
-                    <h1>Welcome to Air Toronto!</h1>
-                    <h3>A flight company like no other</h3>
+                    <h1>Welcome to Royal Airline!</h1>
+                    <h3>A flight company for honor</h3>
                 </section>
             </main>
         </div>

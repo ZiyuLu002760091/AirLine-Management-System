@@ -17,7 +17,7 @@ function NewFlight() {
     const [formData, setFormData] = useState({
         uuid: '',
         flight_number: '',
-        company_name: 'air-toronto',
+        company_name: 'royal-air',
         estimated_departure_datetime: '',
         estimated_arrival_datetime: '',
         origin: '',
@@ -126,7 +126,7 @@ function NewFlight() {
                 <input type="text" id="flight_number" name="flight_number" value={formData.flight_number} onChange={handleChange} required />
 
                 <label htmlFor="company_name">Company Name</label>
-                <input type="text" id="company_name" name="company_name" value="air-toronto" disabled='ture' onChange={handleChange} required />
+                <input type="text" id="company_name" name="company_name" value="royal-air" disabled='ture' onChange={handleChange} required />
 
                 <label htmlFor="estimated_departure_datetime">Estimated Departure Datetime</label>
                 <input type="datetime-local" id="estimated_departure_datetime" name="estimated_departure_datetime" value={formData.estimated_departure_datetime} onChange={handleChange} required />

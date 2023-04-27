@@ -6,7 +6,7 @@ function HeadingAT() {
     let user = isLogin ? getLoginUser() : null;
     return (
         <header>
-            <h2>Welcome to Air Toronto</h2>
+            <h2>Welcome to Royal Airlines</h2>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
