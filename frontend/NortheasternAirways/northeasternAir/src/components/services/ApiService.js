@@ -1,4 +1,4 @@
-function sendRequest({ path, method = "GET", port = "8082", server = "air-toronto", headers = {
+function sendRequest({ path, method = "GET", port = "8083", server = "northeastern-air", headers = {
     "Content-Type": "application/json",
 }, body}) {
     // this is a delegate method of fetch, so that we can handle all http requests inside one place

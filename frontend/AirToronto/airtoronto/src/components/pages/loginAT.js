@@ -21,7 +21,7 @@ function Login() {
         e.preventDefault();
         try {
             const response = await sendRequest({
-                path: "login",
+                path: "airline/login",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

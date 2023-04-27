@@ -19,7 +19,7 @@ function FooterAT() {
                     </nav>
                 </div>
                 <div style={footerMargin}>
-                    <p>© 2023 Air Toronto</p>
+                    <p>© 2023 Northeastern Air</p>
                 </div>
             </footer>
         </div>

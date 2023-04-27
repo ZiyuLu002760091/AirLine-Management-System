@@ -25,7 +25,7 @@ function Heading() {
                             {isLoggedIn ? "Profile" : "Register"}
                         </a>}
                     </li>
-                    {isLoggedIn && (
+                    {isLoggedIn && !isAdmin && (
                         <li>
                         {/*  functions as login only here  */}
                             <a href={myBooksUrl}>My Books</a>
