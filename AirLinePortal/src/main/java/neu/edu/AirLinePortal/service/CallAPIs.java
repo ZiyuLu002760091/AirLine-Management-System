@@ -96,6 +96,45 @@ public class CallAPIs {
         return responseMap;
 
 //        ResponseEntity<CommonResponse> response = restTemplate.getForEntity(serverURL, CommonResponse.class, map);
+    }
 
+    public CommonResponse getSpecificAPI(String issue, String server, Map<String, Object> hashMap) {
+        String apiPath = ApiCenter.getInstance().getAPI(issue, server);
+        String serverURL = eurekaClient.getNextServerFromEureka(server, false).getHomePageUrl();
+        serverURL = serverURL + server + apiPath;
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(serverURL);
+
+        if (null != hashMap) {
+            hashMap.forEach(builder::queryParam);
+        }
+
+        String url = builder.toUriString();
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+//            ResponseEntity<String> response = restTemplate.getForEntity(serverURL, String.class, hashMap);
+        String body = response.getBody();
+        System.out.println(body);
+        Gson jsonObject = new Gson();
+        CommonResponse jsonBody = jsonObject.fromJson(body, CommonResponse.class);
+
+        return jsonBody;
+    }
+
+
+    public CommonResponse postSpecificAPI(String issue, String server, Map<String, Object> hashMap) {
+        String apiPath = ApiCenter.getInstance().getAPI(issue, server);
+        String serverURL = eurekaClient.getNextServerFromEureka(server, false).getHomePageUrl();
+        serverURL = serverURL + server + apiPath;
+
+        ResponseEntity<String> response = restTemplate.postForEntity(serverURL, hashMap, String.class);
+
+//            ResponseEntity<String> response = restTemplate.getForEntity(serverURL, String.class, hashMap);
+        String body = response.getBody();
+        System.out.println(body);
+        Gson jsonObject = new Gson();
+        CommonResponse jsonBody = jsonObject.fromJson(body, CommonResponse.class);
+
+        return jsonBody;
     }
 }

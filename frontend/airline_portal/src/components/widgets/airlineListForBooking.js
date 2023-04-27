@@ -90,6 +90,7 @@ function BookFlightList({ data }) {
                     <th>Ac Arrival</th>
                     <th>Price</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -105,6 +106,7 @@ function BookFlightList({ data }) {
                         <td>{flight.actual_arrival_datetime ? formatDateTime(flight.actual_arrival_datetime) : "N/A"}</td>
                         <td>{flight.price}</td>
                         <td>{flight.status}</td>
+                        <td>Book</td>
                     </tr>
                 ))}
                 </tbody>

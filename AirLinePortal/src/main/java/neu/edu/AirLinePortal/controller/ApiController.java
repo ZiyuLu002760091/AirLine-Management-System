@@ -1,6 +1,5 @@
 package neu.edu.AirLinePortal.controller;
 
-import neu.edu.AirLinePortal.api.ApiCenter;
 import neu.edu.AirLinePortal.entities.CompanyInfo;
 import neu.edu.AirLinePortal.service.ApiCompanyService;
 import neu.edu.AirLinePortal.service.CallAPIs;
@@ -37,5 +36,24 @@ public class ApiController {
     public ResponseEntity<String> registerAPI(@RequestBody HashMap<String, Object> parameter) {
         callAPIs.registerAPIs(parameter);
         return ResponseEntity.ok(CommonUtils.success(parameter));
+    }
+
+
+    @GetMapping(path = "/api/all/{api}", produces = "application/json")
+    public ResponseEntity<String> delegateGet(@PathVariable String api, @RequestBody HashMap<String, Object> parameter) {
+        Map<String, CommonResponse> resp = callAPIs.getAPIs(api, parameter);
+        return ResponseEntity.ok(CommonUtils.success(resp));
+    }
+
+    @GetMapping(path = "/api/specific/{server}/{api}", produces = "application/json")
+    public ResponseEntity<String> delegateGetOne(@PathVariable String server,@PathVariable String api, @RequestBody HashMap<String, Object> parameter) {
+        CommonResponse resp = callAPIs.getSpecificAPI(api, server, parameter);
+        return ResponseEntity.ok(CommonUtils.success(resp));
+    }
+
+    @PostMapping(path = "/api/specific/{server}/{api}", produces = "application/json")
+    public ResponseEntity<String> delegatePostOne(@PathVariable String server,@PathVariable String api, @RequestBody HashMap<String, Object> parameter) {
+        CommonResponse resp = callAPIs.postSpecificAPI(api, server, parameter);
+        return ResponseEntity.ok(CommonUtils.success(resp));
     }
 }

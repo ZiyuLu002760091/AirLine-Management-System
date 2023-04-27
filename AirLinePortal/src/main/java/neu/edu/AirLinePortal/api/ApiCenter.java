@@ -80,6 +80,10 @@ public class ApiCenter {
         return paths;
     }
 
+    public String getAPI(String issue, String server) {
+        return map.get(server).get(issue).toString();
+    }
+
     public HashMap<String, Map<String, Object>> getMap() {
         return map;
     }
