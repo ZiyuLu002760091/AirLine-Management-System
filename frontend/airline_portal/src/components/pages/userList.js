@@ -32,6 +32,26 @@ function UserList() {
         window.location.href = `profileAdmin?${params.toString()}`;
     }
 
+    const deleteUser = async (user) => {
+        user.dob = ''
+        await sendRequest({
+            method: "POST",
+            path: 'user/delete',
+            body: user
+        })
+    }
+
+    const handleDeleteUser = (user) => {
+        const confirmed = window.confirm(`Are you sure you want to delete ${user.name}?`);
+
+        if (confirmed) {
+            // setUsers((users) => users.filter((u) => u.id !== user.id));
+            deleteUser(user);
+            window.location.href = window.location.href;
+        }
+    }
+
+
     return (
         <div>
             <h1>User List</h1>
@@ -63,6 +83,11 @@ function UserList() {
                         {
                             user.role !== 'admin' && (
                                 <td><button onClick={() => {handleEditUser(user)}}>Edit</button></td>
+                            )
+                        }
+                        {
+                            user.role !== 'admin' && (
+                                <td><button onClick={() => {handleDeleteUser(user)}}>Delete</button></td>
                             )
                         }
                     </tr>

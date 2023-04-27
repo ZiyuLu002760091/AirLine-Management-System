@@ -41,6 +41,13 @@ public class UserService {
     }
 
     /**
+     * Delete existing user
+     */
+    public void deleteUser(User user) throws Exception {
+        userRepo.delete(user);
+    }
+
+    /**
      * update user without email and password
      */
     public User update(UserUpdate user) throws Exception {

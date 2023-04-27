@@ -59,6 +59,15 @@ public class UserController {
         }
     }
 
+    @PostMapping(path = "/user/delete", produces = "application/json")
+    public ResponseEntity<String> deleteUser(@RequestBody User user) {
+        try {
+            userService.deleteUser(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(CommonUtils.failed(e.getMessage()));
+        }
+        return ResponseEntity.ok(CommonUtils.success());
+    }
 
     @Deprecated
     @PostMapping(path = "/user/create", produces = "application/json")
