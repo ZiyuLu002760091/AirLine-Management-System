@@ -2,11 +2,14 @@ package neu.edu.AirToronto.controller;
 
 import neu.edu.AirToronto.entities.Book;
 import neu.edu.AirToronto.repo.BookRepository;
+import neu.edu.AirToronto.repo.FlightBookRepo;
 import neu.edu.common.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -18,7 +21,10 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookRepository bookRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private FlightBookRepo flightBookRepo;
 
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -82,7 +88,21 @@ public class BookController {
 
     @GetMapping("/findByUser")
     public ResponseEntity<String> getAllBooksForUser(@RequestParam("userId") String userId) {
-        return ResponseEntity.ok(CommonUtils.success(bookRepository.findAllByUserid(userId)));
+        return ResponseEntity.ok(CommonUtils.success(flightBookRepo.getFlightReservations(userId)));
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<String> cancelBook(@RequestBody Map<String, Object> map) {
+        String uuid = map.get("uuid").toString();
+        System.out.println(uuid);
+        Optional<Book> bookOptional = bookRepository.findByFlightid(uuid);
+        if (bookOptional.isPresent()) {
+            Book updatedBook = bookOptional.get();
+            updatedBook.setBookStatus("cancelled");
+            return ResponseEntity.ok(CommonUtils.success(bookRepository.save(updatedBook)));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 

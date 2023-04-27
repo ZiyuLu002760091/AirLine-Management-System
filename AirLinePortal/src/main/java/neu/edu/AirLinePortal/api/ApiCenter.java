@@ -30,6 +30,7 @@ public class ApiCenter {
     public static final String FIND_BOOK_BY_USER = "FIND_BOOK_BY_USER";
     public static final String FIND_ALL_BOOK = "FIND_ALL_BOOK";
     public static final String CREATE_BOOK = "CREATE_BOOK";
+    public static final String CANCEL_BOOK = "CANCEL_BOOK";
 
     private static ApiCenter instance = new ApiCenter();
     private ApiCenter() {

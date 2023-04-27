@@ -39,6 +39,7 @@ public class AirTorontoApplication implements ApplicationRunner {
 			map.put("FIND_BOOK_BY_USER","/books/findByUser");
 			map.put("FIND_ALL_BOOK","/books/getAll");
 			map.put("CREATE_BOOK","/books/create");
+			map.put("CANCEL_BOOK","/books/cancel");
 			String serverURL = "http://localhost:8081/";
 			serverURL = serverURL + "portal/api/register";
 			System.out.println(serverURL);

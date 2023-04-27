@@ -3,8 +3,6 @@ package neu.edu.AirToronto.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * @author YUlia
  * @version 1.0
@@ -26,5 +24,5 @@ public class Book {
 
     private String server;
 
-    private String status;
+    private String bookStatus;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import sendRequest from "../services/ApiService";
 import {checkLogin, getLoginUser} from "../services/loginService";
+import './tableStyle.css'
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
@@ -50,6 +51,22 @@ const BooksForUser = ({ userId }) => {
         setBooks(dataList)
     }
 
+    const handleCancelBook = async ({book}) => {
+        const data = await sendRequest({
+            path: `api/specific/${book.companyName}/CANCEL_BOOK`,
+            method: 'POST',
+            body: {
+                uuid: book.uuid
+            }
+        })
+        if (data.success) {
+            alert("cancelled success!");
+            window.location.href = window.location.href;
+        } else {
+
+        }
+    }
+
     useEffect(() => {
         getBookByUser();
     }, []);
@@ -60,26 +77,47 @@ const BooksForUser = ({ userId }) => {
             <table>
                 <thead>
                 <tr>
-                    <th>UUID</th>
-                    {/*<th>User ID</th>*/}
-                    <th>Flight ID</th>
+                    <th>Flight Number</th>
+                    <th>Company Name</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Estimated Departure Datetime</th>
+                    <th>Estimated Arrival Datetime</th>
+                    <th>Actual Departure Datetime</th>
+                    <th>Actual Arrival Datetime</th>
+                    <th>Price</th>
                     <th>Date</th>
                     <th>Server</th>
+                    <th>Book Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {books.map((book) => (
-                    <tr key={book.id}>
-                        <td>{book.uuid}</td>
-                        {/*<td>{book.userid}</td>*/}
-                        <td>{book.flightid}</td>
-                        <td>{book.date}</td>
+                    <tr key={book.uuid}>
+                        <td>{book.flightNumber}</td>
+                        <td>{book.companyName}</td>
+                        <td>{book.origin}</td>
+                        <td>{book.destination}</td>
+                        <td>{book.status}</td>
+                        <td>{book.estimatedDepartureDatetime}</td>
+                        <td>{book.estimatedArrivalDatetime}</td>
+                        <td>{book.actualDepartureDatetime}</td>
+                        <td>{book.actualArrivalDatetime}</td>
+                        <td>{book.price}</td>
+                        <td>{book.date.substring(0,10)}</td>
                         <td>{book.server}</td>
+                        <td>{book.bookStatus}</td>
+                        <td>{book.bookStatus === 'booked' && (
+                            <button onClick={() => {handleCancelBook({book:book})}}>Cancel</button>
+                        )}</td>
                     </tr>
                 ))}
                 </tbody>
             </table>
         </div>
+
     );
 
 };

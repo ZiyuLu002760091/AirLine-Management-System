@@ -88,7 +88,7 @@ function BookFlightList({data}) {
                     "flightid": flight.uuid,
                     "date": new Date().toISOString().substring(0, 10),
                     "server": "Toronto",
-                    "status": "booked"
+                    "bookStatus": "booked"
                 }
             }
         )
