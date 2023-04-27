@@ -1,14 +1,16 @@
-import React, { useState,useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../FlightData.css';
+import sendRequest from "../services/ApiService";
+import {checkLogin, getLoginUser} from "../services/loginService";
 
 function formatDateTime(datetimeString) {
     const date = new Date(datetimeString);
     const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const formattedTime = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
     return `${formattedDate} ${formattedTime}`;
 }
 
-function BookFlightList({ data }) {
+function BookFlightList({data}) {
     const [sortBy, setSortBy] = useState("time");
     const [sortOrder, setSortOrder] = useState(0); // 0 for ascending, 1 for descending
     const [timeBtnStr, setTimeBtn] = useState("Sort by Time Ascend");
@@ -51,7 +53,7 @@ function BookFlightList({ data }) {
     }, [data]);
 
     if (flights.length === 0) {
-        return <p>No flights available.</p >;
+        return <p>No flights available.</p>;
     }
 
     const sortedFlights = flights.slice().sort((a, b) => {
@@ -70,6 +72,35 @@ function BookFlightList({ data }) {
         }
     });
 
+    const handleBook = async ({server, flight}) => {
+
+        let login = checkLogin();
+        if (!login) {
+            alert("you have to login to perform this action!")
+            return;
+        }
+
+        const data = await sendRequest({
+                path: `api/specific/${server}/CREATE_BOOK`,
+                method: 'POST',
+                body: {
+                    "userid": getLoginUser().uuid,
+                    "flightid": flight.uuid,
+                    "date": new Date().toISOString().substring(0, 10),
+                    "server": "Toronto",
+                    "status": "booked"
+                }
+            }
+        )
+
+        if (data.success) {
+            alert("success!");
+        } else {
+            alert("cannot book again!");
+        }
+
+        console.log(data)
+    }
 
     return (
         <div>
@@ -106,7 +137,9 @@ function BookFlightList({ data }) {
                         <td>{flight.actual_arrival_datetime ? formatDateTime(flight.actual_arrival_datetime) : "N/A"}</td>
                         <td>{flight.price}</td>
                         <td>{flight.status}</td>
-                        <td>Book</td>
+                        <td>
+                            <button onClick={() => handleBook({server: flight.company_name, flight: flight})}>Book</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

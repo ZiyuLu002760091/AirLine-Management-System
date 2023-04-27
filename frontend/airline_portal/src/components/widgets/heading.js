@@ -5,6 +5,8 @@ function Heading() {
     const loginUser = isLoggedIn ? getLoginUser() : null;
     const isAdmin = isLoggedIn ? loginUser.role === 'admin' : false;
 
+    const myBooksUrl = '/books/' + (isLoggedIn ? getLoginUser().uuid : null);
+
     return (
         <header>
             <h2>Welcome to Flights Booking Agency</h2>
@@ -26,6 +28,7 @@ function Heading() {
                     {isLoggedIn && (
                         <li>
                         {/*  functions as login only here  */}
+                            <a href={myBooksUrl}>My Books</a>
                         </li>
                     )}
                     {isAdmin && (

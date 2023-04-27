@@ -21,6 +21,7 @@ import SearchFlightsPage from "./components/pages/searchFlightsPage";
 import UserList from "./components/pages/userList";
 import ChangeProfileAdmin from "./components/pages/profileAdmin";
 import CompaniesPage from "./components/pages/companies";
+import {AllBooks, BooksForUser} from "./components/pages/bookPage";
 
 
 
@@ -45,6 +46,8 @@ function App() {
                 <Route path="/searchFlights" element={<SearchFlightsPage />} />
                 <Route path="/userList" element={<UserList />} />
                 <Route path="/companies" element={<CompaniesPage />} />
+                <Route exact path="/books" element={<AllBooks/>} />
+                <Route exact path="/books/:userId" element={<BooksForUser />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>

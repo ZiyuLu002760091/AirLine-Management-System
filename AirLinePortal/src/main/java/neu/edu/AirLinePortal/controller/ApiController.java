@@ -40,13 +40,13 @@ public class ApiController {
 
 
     @GetMapping(path = "/api/all/{api}", produces = "application/json")
-    public ResponseEntity<String> delegateGet(@PathVariable String api, @RequestBody HashMap<String, Object> parameter) {
+    public ResponseEntity<String> delegateGet(@PathVariable String api, @RequestParam HashMap<String, Object> parameter) {
         Map<String, CommonResponse> resp = callAPIs.getAPIs(api, parameter);
         return ResponseEntity.ok(CommonUtils.success(resp));
     }
 
     @GetMapping(path = "/api/specific/{server}/{api}", produces = "application/json")
-    public ResponseEntity<String> delegateGetOne(@PathVariable String server,@PathVariable String api, @RequestBody HashMap<String, Object> parameter) {
+    public ResponseEntity<String> delegateGetOne(@PathVariable String server,@PathVariable String api, @RequestParam HashMap<String, Object> parameter) {
         CommonResponse resp = callAPIs.getSpecificAPI(api, server, parameter);
         return ResponseEntity.ok(CommonUtils.success(resp));
     }
