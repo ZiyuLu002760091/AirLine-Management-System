@@ -21,6 +21,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping(path = "/user/find", produces = "application/json")
+    public ResponseEntity<String> findUserByEmail(@RequestParam("email") String email) {
+        return ResponseEntity.ok(CommonUtils.success(userService.findUserByEmail(email)));
+    }
+
     @GetMapping(path = "/user/all", produces = "application/json")
     public ResponseEntity<String> findAllUser() {
         return ResponseEntity.ok(CommonUtils.success(userService.findAllUsers()));

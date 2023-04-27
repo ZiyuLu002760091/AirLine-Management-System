@@ -44,6 +44,7 @@ public class UserService {
      * update user without email and password
      */
     public User update(UserUpdate user) throws Exception {
+        System.out.println(user.toString());
         Optional<User> optional = userRepo.findById(user.getUuid());
         if (optional.isPresent()) {
             User userExist = optional.get();

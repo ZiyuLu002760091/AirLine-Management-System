@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getLoginUser, login, logout} from "../services/loginService";
+import sendRequest from "../services/ApiService";
 
-function ChangeProfile() {
+function ChangeProfileAdmin() {
 
     const [fnameErr, setFnameErr] = useState("");
     const [lNameErr, setLnameErr] = useState("");
@@ -12,15 +13,34 @@ function ChangeProfile() {
     const [phoneErr, setPhoneErr] = useState("");
     const [error, setErrorMessage] = useState("");
 
-    const user = getLoginUser() ;// Convert Java Date to string
+    const [user, setUser] = useState({});// Convert Java Date to string
+    // var javaDateString = user.dob.toString();
+    // var jsDate = new Date(javaDateString);
+    // user.gender.toLowerCase()
+    const [gender, setGender] = useState("");
+    //jsDate.toISOString().substring(0, 10)
+    const [dob, setDob] = useState("")
 
-    var javaDateString = user.dob.toString();
+    const fetchUserInfo = async () => {
+        let res = await sendRequest( {
+            path: `user/find${window.location.search}`
+        })
+        console.log(res.data);
+        let resdata = res.data;
 
-// Create new JavaScript Date object from string
-    var jsDate = new Date(javaDateString);
-    const [gender, setGender] = useState(user.gender.toLowerCase());
-    const [dob, setDob] = useState(jsDate.toISOString().substring(0, 10))
 
+        if (resdata.role === "admin") {
+            window.alert("Admin profile cannot be changed");
+            window.location.href = "/";
+            return;
+        }
+
+        setUser(resdata);
+        setGender(resdata.gender.toLowerCase())
+        let javaDateString = resdata.dob.toString();
+        let jsDate = new Date(javaDateString);
+        setDob(jsDate.toISOString().substring(0, 10));
+    }
 
     const handleSubmitCredential = async (e) => {
         e.preventDefault();
@@ -48,8 +68,6 @@ function ChangeProfile() {
             if (res.success) {
                 // Redirect to the homepage
                 window.location.href = "/";
-                // "logout" because credential changed
-                logout();
             } else {
                 console.error(res.message)
 
@@ -73,6 +91,7 @@ function ChangeProfile() {
             data[key] = value;
         });
         data['uuid'] = user.uuid;
+        // data['dob'] = new Date(data['dob']);
         try {
             const response = await fetch("http://localhost:8081/portal/user/update", {
                 method: "POST",
@@ -86,8 +105,6 @@ function ChangeProfile() {
             if (res.success) {
                 // Redirect to the homepage
                 window.location.href = "/";
-                // "login" again to update user info
-                login(res);
             } else {
                 console.error(res.message)
                 let databody = res.data;
@@ -143,10 +160,15 @@ function ChangeProfile() {
         }
     };
 
-    if (user.role === "admin") {
-        window.alert("Admin profile cannot be changed");
-        window.location.href = "/";
-        return;
+    useEffect(() => {
+        fetchUserInfo();
+    }, [])
+
+    let loginUser = getLoginUser();
+    if (!loginUser || loginUser.role !== 'admin') {
+        alert("you are not allowed to view this page!");
+        window.location.href = '/';
+        return ;
     }
 
     return (
@@ -208,4 +230,4 @@ function ChangeProfile() {
     )
 }
 
-export default ChangeProfile;
+export default ChangeProfileAdmin;

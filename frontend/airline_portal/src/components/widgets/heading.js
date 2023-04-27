@@ -28,6 +28,14 @@ function Heading() {
                         {/*  functions as login only here  */}
                         </li>
                     )}
+                    {isAdmin && (
+                        <li>
+                            {/*  functions as admin only here  */}
+                            <a href="/userList">All Users</a>
+                        </li>
+                    )
+
+                    }
                 </ul>
             </nav>
         </header>

@@ -42,4 +42,18 @@ public class UserUpdate {
     private String gender;
 
     private String status;
+
+    @Override
+    public String toString() {
+        return "UserUpdate{" +
+                "uuid='" + uuid + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", dob=" + dob +
+                ", phoneno='" + phoneno + '\'' +
+                ", role='" + role + '\'' +
+                ", gender='" + gender + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

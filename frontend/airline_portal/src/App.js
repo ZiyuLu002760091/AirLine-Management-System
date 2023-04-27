@@ -18,6 +18,8 @@ import ChangeProfile from "./components/pages/profile";
 import {checkLogin, getLoginUser} from "./components/services/loginService";
 import AdminPage from "./components/pages/adminMainPage";
 import SearchFlightsPage from "./components/pages/searchFlightsPage";
+import UserList from "./components/pages/userList";
+import ChangeProfileAdmin from "./components/pages/profileAdmin";
 
 
 
@@ -36,9 +38,11 @@ function App() {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/logout" element={<Logout/>} />
                 <Route path="/profile" element={<ChangeProfile/>} />
+                <Route path="/profileAdmin" element={<ChangeProfileAdmin/>} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/airlineListPage" element={<AirlineListPage />} />
                 <Route path="/searchFlights" element={<SearchFlightsPage />} />
+                <Route path="/userList" element={<UserList />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
