@@ -20,6 +20,7 @@ import AdminPage from "./components/pages/adminMainPage";
 import SearchFlightsPage from "./components/pages/searchFlightsPage";
 import UserList from "./components/pages/userList";
 import ChangeProfileAdmin from "./components/pages/profileAdmin";
+import CompaniesPage from "./components/pages/companies";
 
 
 
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/airlineListPage" element={<AirlineListPage />} />
                 <Route path="/searchFlights" element={<SearchFlightsPage />} />
                 <Route path="/userList" element={<UserList />} />
+                <Route path="/companies" element={<CompaniesPage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>

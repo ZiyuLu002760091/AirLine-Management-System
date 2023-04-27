@@ -79,4 +79,8 @@ public class ApiCenter {
         }
         return paths;
     }
+
+    public HashMap<String, Map<String, Object>> getMap() {
+        return map;
+    }
 }
