@@ -9,6 +9,7 @@ function MainPageAdmin() {
                     <ul>
                         <li>You can:</li>
                         <li>1. <a href="/createFlight">Create Flight</a></li>
+                        <li>2. <a href="/viewFlight">View Flight</a></li>
                     </ul>
                 </section>
             </main>

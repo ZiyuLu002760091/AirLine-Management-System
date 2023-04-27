@@ -36,6 +36,7 @@ function NewFlight() {
             body : formData
         });
         console.log(resp);
+        alert("success!")
     }
 
     const handleSubmit = (event) => {

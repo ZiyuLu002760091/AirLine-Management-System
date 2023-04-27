@@ -28,6 +28,7 @@ public interface FlightsRepo extends JpaRepository<Flight, String> {
     SELECT * FROM flightsinfo
     WHERE origin = ?1
     AND destination = ?2
+    AND status != 'cancelled'
     AND DATE(estimated_departure_datetime) = ?3
     """, nativeQuery = true)
     List<Flight> findFlightsByAirportsAndDate(String from, String to, LocalDate date);

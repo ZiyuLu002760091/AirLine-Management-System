@@ -43,6 +43,14 @@ function Heading() {
                             </li>
                         )
                     }
+
+                    {isAdmin && (
+                        <li>
+                            {/*  functions as admin only here  */}
+                            <a href="/airlineListPage">All Flights</a>
+                        </li>
+                    )
+                    }
                 </ul>
             </nav>
         </header>

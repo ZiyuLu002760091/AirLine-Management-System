@@ -10,6 +10,8 @@ import Logout from "./components/pages/logoutPageAT";
 import NewFlight from "./components/pages/createFlightAT";
 import ErrorPage from "./components/pages/errorPage";
 import FooterAT from "./components/widgets/footerAT";
+import ModifyFlightPage from "./components/pages/modifyFlightAT";
+import AirlineListPage from "./components/pages/airlineListPage";
 
 function App() {
 
@@ -27,6 +29,8 @@ function App() {
                 <Route path="/login" element={<LoginAT/>} />
                 <Route path="/logout" element={<Logout/>} />
                 <Route path="/createFlight" element={isAdmin ? <NewFlight/> : <ErrorPage/>} />
+                <Route path="/modifyFlight" element={isAdmin ? <ModifyFlightPage/> : <ErrorPage/>} />
+                <Route path="/viewFlight" element={isAdmin ? <AirlineListPage/> : <ErrorPage/>} />
             </Routes>
         </BrowserRouter>
 
